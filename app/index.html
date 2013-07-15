@@ -1,0 +1,63 @@
+<html>
+<head>
+    <script src="/js/libs/jquery.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/plot.js"></script>
+    <script src="/js/test/drawWaves.js"></script>
+    <title>Gaitroid</title>
+    <script>
+    $(document).ready(function() {
+      console.log("runing");
+      var socket = io.connect('http://localhost');
+        socket.on('news', function (data) {
+        console.log(data);
+        $('#test').append(
+          '<h2>' + data.hello + '</h2>'
+        );
+        socket.emit('my other event', { my: 'data' });
+      }); 
+    });
+    </script>
+</head>
+<body>
+  <div id="header"></div>
+  <div class="bs-header">
+      <div class="container">
+        <h1>Gaitroid</h1>
+        <p>Description</p>
+      </div>
+  </div>
+
+  <div class="container bs-docs-container">
+    <div class="row">
+      <div class="col col-lg-3">
+          <div class="bs-sidebar affix-top">
+            <ul class="nav bs-sidenav">
+              <li class="active">
+                <a href="#overview">Overview</a>
+                <ul class="nav">
+                  <li class="active"><a href="#overview-doctype">HTML5 doctype</a></li>
+                  <li class=""><a href="#overview-mobile">Mobile first</a></li>
+                  <li class=""><a href="#overview-responsive-images">Responsive images</a></li>
+                  <li class=""><a href="#overview-type-links">Type and links</a></li>
+                  <li><a href="#overview-normalize">Normalize</a></li>
+                  <li class=""><a href="#overview-container">Container</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+      </div>
+      <div class="col col-lg-9">
+        <p>accel-x-left</p>
+        <canvas height="200" width="800" id="accel-x-left" ></canvas>
+        <p>accel-x-right</p>
+        <canvas height="200" width="800" id="accel-x-right" ></canvas>
+      </div>
+    </div>
+  </div>
+  
+  <div id="footer"></div>
+
+</body>
+</html>

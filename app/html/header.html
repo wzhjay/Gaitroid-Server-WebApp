@@ -1,0 +1,64 @@
+<script>
+  function readCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split('; ');
+      for(var i=0;i < ca.length;i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1,c.length);
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      }
+      return null;
+  }
+
+  if(document.cookie.length > 0) {
+    var username = readCookie('username');
+    // var id = readCookie('_id');
+    if(username.length > 0) {
+      $('#login').before('<li id="username"><a href="/api/Patients/' + username + '">' + username + '</a></li>');
+      $('#login').remove();
+      $('#username').after('<li id="logout"><a href="/logout">Logout</a></li>');
+    }
+    else{
+      $('#logout').before('<li id="login"><a href="/login">Login</a></li>');
+      $('#logout').remove();
+      $('#username').remove();
+    }
+  }
+</script>
+<div class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+    <div class="container">
+      <a href="/" class="navbar-brand">Gaitroid</a>
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="nav-collapse collapse bs-navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="/waves">Waves</a>
+          </li>
+          <li>
+            <a href="/html/patients.html">Patients</a>
+          </li>
+          <li>
+            <a href="/html/doctors.html">Doctors</a>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav pull-right">
+          <li id='login'><a href="/login">Login</a></li>
+          <li class="divider-vertical"></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign up<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/patient_signup">As Patient</a></li>
+              <li class="divider"></li>
+              <li><a href="#">As Doctor</a></li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>

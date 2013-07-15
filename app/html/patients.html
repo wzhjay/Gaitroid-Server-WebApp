@@ -1,0 +1,55 @@
+<html>
+<head>
+    <script id="patientTemplate" type="text/template">
+    <div class="user_profle">
+        <table class="table">
+        <tbody>
+            <tr>
+                <td style="width:20%">
+                    <div class="user_profile_img">
+                        <img src = "../img/default_user.png" />
+                    </div>
+                </td>
+                <td style="width:30%">
+                    <div class="user_profile_info">
+                        <p><%= patient_profile[0].firstname %>  <%= patient_profile[0].lastname %></p>
+                        <p><%= patient_profile[0].gender %></p>   
+                    </div>
+                </td>
+                <td style="width:50%">
+                    <div class="user_profile_info">
+                        <p>Email: <%= patient_profile[0].email %></p>
+                        <p>Phone: <%= patient_profile[0].phone %></p>
+                        <p>Country: <%= patient_profile[0].address[0].country %></p>     
+                        <p>City: <%= patient_profile[0].address[0].city %></p>     
+                        <p>Street: <%= patient_profile[0].address[0].street %></p>            
+                        <p>Postcode: <%= patient_profile[0].address[0].postcode %></p>
+                        <p>Creted_time: <%= patient_profile[0].created_time %></p>    
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <hr>
+    </script>
+    <script src="/js/libs/jquery.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Gaitroid</title>
+</head>
+<body>
+    <div id="header"></div>
+    <div class="bs-header">
+      <div class="container">
+        <h1>Patients</h1>
+      </div>
+  </div>
+
+    <div class="container bs-docs-container">
+        <div id="patients"></div>
+    </div>
+
+    <div id="footer"></div>
+</body>
+</html>

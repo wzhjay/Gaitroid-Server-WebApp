@@ -1,0 +1,268 @@
+/*
+ * Bootstrap Documentation
+ * Special styles for presenting Bootstrap's documentation and code examples.
+ */
+
+
+
+/* Key scaffolding
+-------------------------------------------------- */
+
+body {
+  position: relative; /* For scrollyspy */
+  padding-top: 50px; /* Account for fixed navbar */
+}
+
+
+
+/* Top nav and header
+-------------------------------------------------- */
+
+.bs-docs-nav {
+  background-color: #1ABC9C;
+}
+.bs-docs-nav .navbar-brand {
+  color: #34495e;
+}
+.bs-docs-nav .navbar-nav > li > a {
+  color: #34495e;
+}
+.bs-docs-nav .navbar-nav > li > a:hover {
+  color: #fff;
+}
+.bs-docs-nav .navbar-nav > .active > a,
+.bs-docs-nav .navbar-nav > .active > a:hover {
+  color: #fff;
+  background-color: #34495e;
+}
+.bs-docs-nav .navbar-toggle {
+  border-color: #34495e;
+}
+.bs-docs-nav .navbar-toggle:hover {
+  background-color: #34495e;
+  border-color: #34495e;
+}
+
+
+/* button and label*/ 
+.btn {
+  background-color: #1ABC9C;
+  color: #34495e;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+label {
+  font-weight:lighter;
+  color: #34495e;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Customize and Download button
+-------------------------------------------------- */
+
+.bs-customizer {
+
+}
+.bs-customizer .toggle {
+  float: right;
+}
+.bs-customizer label {
+  margin-top: 10px;
+  font-weight: 500;
+  color: #555;
+}
+.bs-customizer h4 {
+  margin-top: 15px;
+}
+.bs-customizer input[type="text"] {
+  background-color: #fafafa;
+}
+
+
+.bs-customize-download {
+  text-align:center;
+}
+.bs-customize-download .btn {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 18px 24px;
+  font-size: 21px;
+  color: #b94a48;
+  background-color: #fff;
+  border-color: #b94a48;
+}
+.bs-customize-download .btn:hover,
+.bs-customize-download .btn:active {
+  color: #fff;
+  background-color: #b94a48;
+}
+
+
+
+/* Docs pages and sections
+-------------------------------------------------- */
+
+/* Page headers */
+.bs-header {
+  padding: 30px 30px 40px;
+  color: #5a5a5a;
+  text-align: right;
+  border-bottom: 1px solid #ddd;
+}
+.bs-header h1 {
+  color: #1ABC9C;
+  font-size: 60px;
+}
+.bs-header p {
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+/* Padding for in-page bookmarks */
+.bs-docs-section {
+  padding-top: 30px;
+}
+
+
+
+/* Docs sidebar
+-------------------------------------------------- */
+
+/* By default it's not affixed in mobile views, so undo that */
+.bs-sidebar.affix {
+  position: static;
+}
+
+/* First level of nav */
+.bs-sidenav {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-shadow: 0 1px 0 #fff;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+/* All levels of nav */
+.bs-sidebar .nav > li > a {
+  display: block;
+  color: #666;
+  padding: 4px 20px;
+}
+.bs-sidebar .nav > li > a:hover,
+.bs-sidebar .nav > li > a:focus {
+  text-decoration: none;
+  border-right: 1px solid #d5d5d5;
+}
+.bs-sidebar .nav > .active > a,
+.bs-sidebar .nav > .active:hover > a,
+.bs-sidebar .nav > .active:focus > a {
+  font-weight: 500;
+  color: #b94a48;
+  background-color: transparent;
+  border-right: 1px solid #b94a48;
+}
+
+/* Nav: second level (shown on .active) */
+.bs-sidebar .nav .nav {
+  display: none;
+  margin-bottom: 5px;
+}
+.bs-sidebar .nav > .active > ul {
+  display: block;
+}
+.bs-sidebar .nav .nav > li > a {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 30px;
+  font-size: 90%;
+}
+
+
+/* page content */
+
+.user_profile_img {
+  width: 150;
+  height: 150px;
+}
+
+.user_profle {
+  border: solid 1px #CCCCCC;
+  border-radius: 5px;
+  background-color: #DBDBDB;
+  overflow: hidden;
+}
+
+.user_profile_img {
+  display: inline-block;
+}
+
+.user_profile_info {
+  display: inline-block;
+}
+
+table {
+  text-align: start;
+}
+
+@font-face
+{
+  font-family: myFirstFont;
+  src: url('libs/Walkway_Oblique_UltraBold.ttf');
+}
+
+.user_profile_info
+{
+  font-family:myFirstFont;
+  font-size: 16px;
+}
+
+/* footer */
+#footer {
+text-align: center;
+padding: 30px 0;
+margin-top: 70px;
+border-top: 1px solid #e5e5e5;
+background-color: #f5f5f5;
+}
+
+.footer-links {
+  margin: 10px 0;
+}
+
+/* container */
+
+.bs-docs-container {
+  margin-top: 40px;
+}
+
+.control-group {
+  margin: 10px;
+}
+
+.span3 {
+  width: 250px;
+}
+
+.span6 {
+  width: 500px;
+}
+
+#login_form {
+  border: solid 1px #CCCCCC;
+  border-radius: 5px;
+}
+
+#login_button{
+  margin-left: 167px;
+}
+
+.signup_table td{
+  vertical-align: top;
+}
+
+.signup_form_extra {
+  margin-left: 30px;
+}

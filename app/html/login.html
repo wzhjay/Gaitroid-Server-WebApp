@@ -1,0 +1,45 @@
+<html>
+<head>
+    <script src="/js/libs/jquery.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Gaitroid</title>
+</head>
+<body>
+    <div id="header"></div>
+    <div class="bs-header">
+      <div class="container">
+        <h1>Login</h1>
+      </div>
+  </div>
+
+    <div class="container bs-docs-container">
+        <div class="span3">
+        <form id="login_form" action="/login" method="post">
+            <div class="control-group">
+              <label for="inputUsername">Username</label>
+              <div class="controls">
+                <input type="text" name="username" placeholder="Username">
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="inputPassword">Password</label>
+              <div class="controls">
+                <input type="password" name="password" placeholder="Password">
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <label class="checkbox">
+                  <input type="checkbox"> Remember me
+                </label>
+                <button type="submit" class="btn" id="login_button">Log In</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    </div>
+
+    <div id="footer"></div>
+</body>
+</html>
