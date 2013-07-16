@@ -45,7 +45,6 @@ loadJS([
 	"/js/test/bootstrap.js",
 	"/js/models/patient.js",
 	"/js/collections/patients.js",
-	// "/js/templates/patientTemplate.js",
 	"/js/views/patient.js",
 	"/js/views/patients.js",
 	"/js/test/testBackbone2.js",
