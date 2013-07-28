@@ -268,7 +268,7 @@
         io.sockets.on('connection', function (socket) {
             socket.emit('patient', {Patient: JSON.stringify(Patient)});
         });
-        res.sendfile('app/html/patient_home.html');
+        res.sendfile('app/html/patient_home.html'); 
         //return res.send( Patient );
       } else {
         return console.log( err );
