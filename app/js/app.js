@@ -43,13 +43,52 @@ loadJS([
 	"/js/libs/underscore.js",
 	"/js/libs/bootstrap.min.js",
 	"/js/libs/backbone.js",
-	"/js/test/bootstrap.js",
 	"/js/models/patient.js",
 	"/js/collections/patients.js",
 	"/js/views/patient.js",
 	"/js/views/patients.js",
-	"/js/test/testBackbone2.js",
-	"/js/test/testBackbone.js",
+	// "/js/test/testBackbone2.js",
+	// "/js/test/testBackbone.js",
 	"/js/libs/toastr.min.js",
 	"/js/libs/store.min.js"
 ]);
+
+
+
+// loading the footer and header
+var getHeader = function(loopH) {
+	var jdxhr = $.get("../../html/header.html", function(data){
+		$("#header").append(data);
+	})
+	.fail(function() {
+		loopH = true;
+	})
+	.done(function() {
+		loopH = false;
+	});
+}
+
+var getFooter = function(loopF) {
+	var jdxhr = $.get("../../html/footer.html", function(data){
+		$("#footer").append(data);
+	})
+	.fail(function() {
+		loopF = true;
+	})
+	.done(function() {
+		loopF = false;
+	});
+}
+
+var loopH = false, 
+	loopF = false;
+
+do {
+	var header = getHeader(loopH);
+
+} while(loopH)
+
+do {
+	var footer = getFooter(loopF);
+
+} while(loopF)

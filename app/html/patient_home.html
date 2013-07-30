@@ -7,43 +7,61 @@
 
     <title>Gaitroid</title>
 	<script type="text/javascript">
-		var socket = io.connect('http://localhost:3000');
-		socket.once('patient', function(data) {
-			var patient = JSON.parse(data.Patient)[0];
-			var profile = patient.patient_profile[0];
-			var address = profile.address[0];
-			console.log(patient.username);
-			console.log(profile.firstname + " " + profile.lastname);
-			$('#patient').append(
-				'<p>username : ' + patient.username + '</p>' +
-				'<p>Name     : ' + profile.firstname + " " + profile.lastname +'</p>' +
-				'<p>Age      : ' + profile.age + '</p>' +
-				'<p>Email    : ' + profile.email + '</p>' +
-				'<p>Phone    : ' + profile.phone + '</p>'
-				);
+	function readCookie(name) {
+	      var nameEQ = name + "=";
+	      var ca = document.cookie.split('; ');
+	      for(var i=0;i < ca.length;i++) {
+	          var c = ca[i];
+	          while (c.charAt(0)==' ') c = c.substring(1,c.length);
+	          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	      }
+	      return null;
+	  }
 
-			$('#patient_addr').append(
-				'<p>Country  : ' + address.country + '</p>' +
-				'<p>City     : ' + address.city + '</p>' +
-				'<p>Street   : ' + address.street + '</p>' +
-				'<p>Postcode : ' + address.postcode + '</p>'
-				);
+	var socket = io.connect('http://localhost:3000');
+	socket.once('patient', function(data) {
+		var patient = JSON.parse(data.Patient)[0];
+		var profile = patient.patient_profile[0];
+		var address = profile.address[0];
+		console.log(patient.username);
+		console.log(profile.firstname + " " + profile.lastname);
+		store.set('lastname', readCookie('lastname'));
+		store.set('firstname', readCookie('firstname'));
+		store.set('username', readCookie('username'));
 
-			$('#patient_profile_name').append(
-				'<div>' + profile.firstname + " " + profile.lastname +'</div>'
-				);
+		$('#patient').append(
+			'<p>username : ' + store.get('username') + '</p>' +
+			'<p>Name     : ' + store.get('firstname') + ' ' + store.get('lastname') +'</p>' +
+			'<p>Age      : ' + profile.age + '</p>' +
+			'<p>Email    : ' + profile.email + '</p>' +
+			'<p>Phone    : ' + profile.phone + '</p>'
+			);
 
-			$('#patient_profile_username').append(
-				'<div>' + patient.username +'</div>'
-				);
-		})
+		$('#patient_addr').append(
+			'<p>Country  : ' + address.country + '</p>' +
+			'<p>City     : ' + address.city + '</p>' +
+			'<p>Street   : ' + address.street + '</p>' +
+			'<p>Postcode : ' + address.postcode + '</p>'
+			);
 
-		$(document).ready(function ($) {
-		    $('#tabs').tabulous({
-		      effect: 'scaleUp'
-		    }); 
-		});
+		$('#patient_profile_name').append(
+			'<div>' + store.get('firstname') + ' ' + store.get('lastname') +'</div>'
+			);
 
+		$('#patient_profile_username').append(
+			'<div>' + store.get('username') +'</div>'
+			);
+	})
+
+	$(document).ready(function ($) {
+	    $('#tabs3').tabulous({
+	      effect: 'scaleUp'
+	    });
+
+	    $('#tabs').tabulous({
+	      // effect: 'flip'
+	    }); 
+	});
 	</script>
 
 </head>
@@ -52,7 +70,8 @@
 <!--     <div class="bs-header"> -->
       <div class="container">
       	<div class="row">
-      		<div class="col-lg-3">
+      		<!-- side bar, user profile -->
+      		<div class="col-lg-3" style="padding:0;text-align:left">
       			<div class="bs-sidebar affix">
       				<ul class="nav bs-sidenav">
 	      				<li>
@@ -68,8 +87,8 @@
 	      				</li>
 	      				<hr>
 	      				<li>
-	      					<div id="tabs" style="margin-left:-10px;width:201px">
-							    <ul style="margin-left:-30px">
+	      					<div id="tabs3" style="margin-left:-10px;width:201px">
+							    <ul style="margin-left:-30px;border-bottom:1px solid #ddd">
 						            <li><a href="#patient" title="">Profile</a></li>
 						            <li><a href="#patient_addr" title="">More</a></li>
 						        </ul>
@@ -83,6 +102,31 @@
 	      				</li>
 		            </ul>
       			</div>
+      		</div>
+
+	      	<!-- main content -->
+	      	<div class="col-lg-9">
+	      		<div class="gaitrod_content">
+		      		<div id="tabs" style="margin-left:0px;width:100%">
+						<ul style="border-bottom:1px solid #ddd">
+							<li><a href="#history" title="">History</a></li>
+							<li><a href="#schedule" title="">Schedule</a></li>
+							<li><a href="#charts" title="">Charts</a></li>
+						</ul>
+
+						<div id="tabs_container">
+							<div id="history">
+								Ut nec tristique nulla. Integer aliquam tellus enim, vel sagittis sapien tincidunt vitae. Pellentesque iaculis eget nisl vel euismod. Donec tempus augue sed urna rhoncus, quis tincidunt lectus tincidunt.
+							</div>
+							<div id="schedule">
+								Sed at dignissim dui, suscipit sollicitudin arcu. Aenean malesuada ligula in mi lacinia sollicitudin. Vivamus fermentum velit eu nisi iaculis tincidunt.
+							</div>
+							<div id="charts">
+								Integer porttitor ante non nibh posuere tempus. Pellentesque cursus, nisi vel dapibus laoreet, ante neque consectetur nibh, rhoncus rhoncus nulla eros at velit.
+							</div>
+						</div><!--End tabs container-->
+					</div><!--End tabs-->
+				</div>
       		</div>
       	</div>
 

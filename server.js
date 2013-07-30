@@ -53,7 +53,7 @@
   var Hospital = new mongoose.Schema({
       name: {type: String, default: "Unknow"},
       address: {type: String, default: "Unknow"},
-      postcode: {type: Number, default: "Unknow"}
+      postcode: {type: Number, default: 000000}
   }, {_id: false})
 
   var Doctor_profile = new mongoose.Schema({
@@ -134,6 +134,10 @@
   function checkAuth(req, res, next) {
     if (!req.session.authenticated) {
       res.send('You are not authorized to view this page');
+      res.cookie('username', "");
+      res.cookie('_id', "");
+      res.cookie('lastname', "");
+      res.cookie('firstname', "");
       res.redirect('/login');
     } else {
       next();
@@ -176,9 +180,12 @@
         else {
           if(person.length == 1) {
           console.log("_id: " + person[0]._id);
+          console.log("name: " + person[0].patient_profile[0].lastname);
           req.session.authenticated = true;
           res.cookie('username', person[0].username, {expire: new Date() + 90000000, maxAge: 90000000});
           res.cookie('_id', person[0]._id, {expire: new Date() + 90000000, maxAge: 90000000});
+          res.cookie('firstname', person[0].patient_profile[0].firstname);
+          res.cookie('lastname', person[0].patient_profile[0].lastname);
           console.log("cookie", req.cookies._id);
           res.redirect('/');
         }
@@ -247,6 +254,9 @@
     delete req.session.authenticated;
     res.clearCookie('username');
     res.clearCookie('_id');
+    res.clearCookie('firstname');
+    res.clearCookie('lastname');
+    res.clearCookie('name');
     res.redirect('/');
   });
 

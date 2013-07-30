@@ -127,6 +127,7 @@ label {
   margin-right: 6px;
   border: 1px solid #ddd;
   border-radius: 1px;
+  width: 205px;
 }
 
 .profile_img img{
@@ -272,8 +273,15 @@ label {
 
 /* page content */
 
+.gaitrod_content {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 .user_profile_img {
-  width: 150;
+  width: 150px;
   height: 150px;
 }
 
