@@ -3,6 +3,7 @@
 	<script src="/js/libs/jquery.js"></script>
     <script src="/js/app.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/tabulous.min.js"></script>
 
     <title>Gaitroid</title>
 	<script type="text/javascript">
@@ -28,25 +29,65 @@
 				'<p>Postcode : ' + address.postcode + '</p>'
 				);
 
+			$('#patient_profile_name').append(
+				'<div>' + profile.firstname + " " + profile.lastname +'</div>'
+				);
+
+			$('#patient_profile_username').append(
+				'<div>' + patient.username +'</div>'
+				);
 		})
+
+		$(document).ready(function ($) {
+		    $('#tabs').tabulous({
+		      effect: 'scaleUp'
+		    }); 
+		});
+
 	</script>
 
 </head>
 <body>
     <div id="header"></div>
-    <div class="bs-header">
-      <div class="container bs-docs-container">
-		  <table class="patenit_profile_home">
-		  	<tr>
-		  		<td>
-		  			<img src = '/img/default_user.png' />
-		  		</td>
-		  		<td><div id="patient"></div></td>
-		  		<td><div id="patient_addr"></div></td>
-		  	</tr>
-		  </table>
+<!--     <div class="bs-header"> -->
+      <div class="container">
+      	<div class="row">
+      		<div class="col-lg-3">
+      			<div class="bs-sidebar affix">
+      				<ul class="nav bs-sidenav">
+	      				<li>
+	      					<div class="profile_img">
+	      						<img src = '/img/default_user.png' />
+	      					</div>
+	      				</li>
+	      				<li>
+	      					<div id="patient_profile_name">
+	      					</div>
+	      					<div id="patient_profile_username">
+	      					</div>
+	      				</li>
+	      				<hr>
+	      				<li>
+	      					<div id="tabs" style="margin-left:-10px;width:201px">
+							    <ul style="margin-left:-30px">
+						            <li><a href="#patient" title="">Profile</a></li>
+						            <li><a href="#patient_addr" title="">More</a></li>
+						        </ul>
+						        <div id="tabs_container" style="padding:10px">
+						            <div id="patient" style="height:300px;padding-left:20px">
+						            </div>
+						            <div id="patient_addr" style="height:300px;padding-left:20px">
+						            </div>
+						        </div><!--End tabs container--> 
+							</div><!--End tabs-->
+	      				</li>
+		            </ul>
+      			</div>
+      		</div>
+      	</div>
+
       </div>
-  </div>
+  <!-- </div> -->
     <div id="footer"></div>
 </body>
 </html>

@@ -50,13 +50,21 @@
 
   })
 
+  var Hospital = new mongoose.Schema({
+      name: {type: String, default: "Unknow"},
+      address: {type: String, default: "Unknow"},
+      postcode: {type: Number, default: "Unknow"}
+  }, {_id: false})
+
   var Doctor_profile = new mongoose.Schema({
       firstname: {type: String, required: true},
       lastname: {type: String, required: true},
       gender: {type: String, required: true, default: "male"},
       email: {type: String, required: true},
       phone: Number,
-      age: {type: Number, required: true, min: 1, max: 100}
+      age: {type: Number, required: true, min: 1, max: 100},
+      created_time: {type: Date, required: true, default: Date.now},
+      hospital: [Hospital]
 
   }, {_id: false})
 
@@ -65,7 +73,6 @@
       username: {type: String, required: true},
       password: {type: String, required: true},
       doctor_profile: [Doctor_profile]
-
   })
 
   var PatientModel = mongoose.model('Patient', Patient);
@@ -194,6 +201,11 @@
   app.get('/patient_signup', function(req, res) {
     console.log('request from: ' + req.connection.remoteAddress);
       res.sendfile('app/html/patient_signup.html');
+  });
+
+  app.get('/doctor_signup', function(req, res) {
+    console.log('request from: ' + req.connection.remoteAddress);
+      res.sendfile('app/html/doctor_signup.html');
   });
  
   app.post('/patient_signup', function (req, res, next) {

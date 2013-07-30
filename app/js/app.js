@@ -35,7 +35,8 @@ function loadJS(css, callback) {
 loadCSS([
 	"/css/libs/bootstrap.css",
 	"/css/docs.css",
-	"/css/libs/toastr.min.css"
+	"/css/libs/toastr.min.css",
+	"/css/libs/tabulous.css"
 ]);
 
 loadJS([
