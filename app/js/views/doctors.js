@@ -23,7 +23,7 @@ App.DoctorsView = Backbone.View.extend({
 		}, this );
 	},
 
-	// render a book by creating a DoctorView and appending the
+	// render a doctor by creating a DoctorView and appending the
 	// element it renders to the Doctors' element
 	renderDoctor: function( item ) {
 		var doctorView = new App.DoctorView({

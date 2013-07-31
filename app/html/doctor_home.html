@@ -19,17 +19,17 @@
 	  }
 
 	var socket = io.connect('http://localhost:3000');
-	socket.once('patient', function(data) {
-		var patient = JSON.parse(data.Patient)[0];
-		var profile = patient.patient_profile[0];
-		var address = profile.address[0];
-		console.log(patient.username);
+	socket.once('doctor', function(data) {
+		var doctor = JSON.parse(data.Doctor)[0];
+		var profile = doctor.doctor_profile[0];
+		var hospital = profile.hospital[0];
+		console.log(doctor.username);
 		console.log(profile.firstname + " " + profile.lastname);
 		store.set('lastname', readCookie('lastname'));
 		store.set('firstname', readCookie('firstname'));
 		store.set('username', readCookie('username'));
 
-		$('#patient').append(
+		$('#doctor').append(
 			'<p>username : ' + store.get('username') + '</p>' +
 			'<p>Name     : ' + store.get('firstname') + ' ' + store.get('lastname') +'</p>' +
 			'<p>Age      : ' + profile.age + '</p>' +
@@ -37,18 +37,20 @@
 			'<p>Phone    : ' + profile.phone + '</p>'
 			);
 
-		$('#patient_addr').append(
-			'<p>Country  : ' + address.country + '</p>' +
-			'<p>City     : ' + address.city + '</p>' +
-			'<p>Street   : ' + address.street + '</p>' +
-			'<p>Postcode : ' + address.postcode + '</p>'
+		$('#doctor_addr').append(
+			'<p>Hospital Info  : </p>' +
+			'<p>Nmae  : ' + hospital.name + '</p>' +
+			'<p>Country  : ' + hospital.country + '</p>' +
+			'<p>City     : ' + hospital.city + '</p>' +
+			'<p>Address   : ' + hospital.address + '</p>' +
+			'<p>Postcode : ' + hospital.postcode + '</p>'
 			);
 
-		$('#patient_profile_name').append(
+		$('#doctor_profile_name').append(
 			'<div>' + store.get('firstname') + ' ' + store.get('lastname') +'</div>'
 			);
 
-		$('#patient_profile_username').append(
+		$('#doctor_profile_username').append(
 			'<div>' + store.get('username') +'</div>'
 			);
 	})
@@ -80,22 +82,22 @@
 	      					</div>
 	      				</li>
 	      				<li>
-	      					<div id="patient_profile_name">
+	      					<div id="doctor_profile_name">
 	      					</div>
-	      					<div id="patient_profile_username">
+	      					<div id="doctor_profile_username">
 	      					</div>
 	      				</li>
 	      				<hr>
 	      				<li>
 	      					<div id="tabs3" style="margin-left:-10px;width:201px">
 							    <ul style="margin-left:-30px;border-bottom:1px solid #ddd">
-						            <li><a href="#patient" title="">Profile</a></li>
-						            <li><a href="#patient_addr" title="">More</a></li>
+						            <li><a href="#doctor" title="">Profile</a></li>
+						            <li><a href="#doctor_addr" title="">More</a></li>
 						        </ul>
 						        <div id="tabs_container" style="padding:10px">
-						            <div id="patient" style="height:300px;padding-left:20px">
+						            <div id="doctor" style="height:300px;padding-left:20px">
 						            </div>
-						            <div id="patient_addr" style="height:300px;padding-left:20px">
+						            <div id="doctor_addr" style="height:300px;padding-left:20px">
 						            </div>
 						        </div><!--End tabs container--> 
 							</div><!--End tabs-->

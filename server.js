@@ -52,6 +52,8 @@
 
   var Hospital = new mongoose.Schema({
       name: {type: String, default: "Unknow"},
+      country: {type: String, default: "Singapore"},
+      city: {type: String, default: "Singapore"},
       address: {type: String, default: "Unknow"},
       postcode: {type: Number, default: 000000}
   }, {_id: false})
@@ -81,14 +83,14 @@
   exports.PatientModel = PatientModel;
   exports.DoctorModel = DoctorModel;
 
-  PatientModel.findOne({'username': "wzhjay"}, function(err, person) {
-    if(err) {
-      console.log("shit");
-    }
-    else {
-      console.log("%s", person.username);
-    }
-  })
+  // PatientModel.findOne({'username': "wzhjay"}, function(err, person) {
+  //   if(err) {
+  //     console.log("shit");
+  //   }
+  //   else {
+  //     console.log("%s", person.username);
+  //   }
+  // })
 
   // Configure server
   app.configure( function() {
@@ -138,7 +140,8 @@
       res.cookie('_id', "");
       res.cookie('lastname', "");
       res.cookie('firstname', "");
-      res.redirect('/login');
+      res.cookie('role', "");
+      res.redirect('/doctor_login');
     } else {
       next();
     }
@@ -164,39 +167,83 @@
     res.sendfile('app/html/waves.html');
   });
 
-  app.get('/login', function(req, res) {
+  app.get('/patient_login', function(req, res) {
     console.log('request from: ' + req.connection.remoteAddress);
-      res.sendfile('app/html/login.html');
+      res.sendfile('app/html/patient_login.html');
   });
- 
-  app.post('/login', function (req, res, next) {
+  
+  app.get('/doctor_login', function(req, res) {
+    console.log('request from: ' + req.connection.remoteAddress);
+      res.sendfile('app/html/doctor_login.html');
+  });
+
+  app.post('/patient_login', function (req, res, next) {
     console.log('request from: ' + req.connection.remoteAddress);
     if(req.body.username && req.body.password) {
-      console.log("login: username" + req.body.username + " password:" + req.body.password);
-      PatientModel.find({'username': req.body.username, 'password': req.body.password}, function(err, person) {
+      console.log("patient_login: username:" + req.body.username + " password:" + req.body.password);
+      PatientModel.find({'username': req.body.username, 'password': SHA1.hex(req.body.password)}, function(err, person) {
         if(err) {
           console.log(err);
         }
         else {
           if(person.length == 1) {
-          console.log("_id: " + person[0]._id);
-          console.log("name: " + person[0].patient_profile[0].lastname);
-          req.session.authenticated = true;
-          res.cookie('username', person[0].username, {expire: new Date() + 90000000, maxAge: 90000000});
-          res.cookie('_id', person[0]._id, {expire: new Date() + 90000000, maxAge: 90000000});
-          res.cookie('firstname', person[0].patient_profile[0].firstname);
-          res.cookie('lastname', person[0].patient_profile[0].lastname);
-          console.log("cookie", req.cookies._id);
-          res.redirect('/');
+            console.log("_id: " + person[0]._id);
+            console.log("name: " + person[0].patient_profile[0].lastname);
+            req.session.authenticated = true;
+            res.cookie('username', person[0].username, {expire: new Date() + 90000000, maxAge: 90000000});
+            res.cookie('_id', person[0]._id, {expire: new Date() + 90000000, maxAge: 90000000});
+            res.cookie('firstname', person[0].patient_profile[0].firstname);
+            res.cookie('lastname', person[0].patient_profile[0].lastname);
+            res.cookie('role', 'patient');
+            console.log("cookie", req.cookies._id);
+            res.redirect('/');
+          }
+          else if(person.length > 1) {
+            // toast message, more than one users found, same username
+            res.redirect('/patient_login');
+          }
+          else {
+            // toast message, cannot find user
+            res.redirect('/patient_login');
+          }
         }
-        else if(person.length > 1) {
-          // toast message, more than one users found, same username
-          res.redirect('/login');
+      })
+    }
+    else {
+      // toast message, fill in both username and password
+    }
+  });
+
+  app.post('/doctor_login', function (req, res, next) {
+    console.log('request from: ' + req.connection.remoteAddress);
+    if(req.body.username && req.body.password) {
+      console.log("doctor_login: username:" + req.body.username + " password:" + req.body.password);
+      console.log("doctor_login: SHA password:" + SHA1.hex(req.body.password));
+      DoctorModel.find({'username': req.body.username, 'password': SHA1.hex(req.body.password)}, function(err, person) {
+        if(err) {
+          console.log(err);
         }
         else {
-          // toast message, cannot find user
-          res.redirect('/login');
-        }
+          if(person.length == 1) {
+            console.log("_id: " + person[0]._id);
+            console.log("name: " + person[0].doctor_profile[0].lastname);
+            req.session.authenticated = true;
+            res.cookie('username', person[0].username, {expire: new Date() + 90000000, maxAge: 90000000});
+            res.cookie('_id', person[0]._id, {expire: new Date() + 90000000, maxAge: 90000000});
+            res.cookie('firstname', person[0].doctor_profile[0].firstname);
+            res.cookie('lastname', person[0].doctor_profile[0].lastname);
+            res.cookie('role', 'doctor');
+            console.log("cookie", req.cookies._id);
+            res.redirect('/');
+          }
+          else if(person.length > 1) {
+            // toast message, more than one users found, same username
+            res.redirect('/doctor_login');
+          }
+          else {
+            // toast message, cannot find user
+            res.redirect('/doctor_login');
+          }
         }
       })
     }
@@ -241,10 +288,45 @@
     Patient.save( function( err ) {
       if( !err ) {
         console.log( 'new patient created' );
-        res.redirect('/login');
+        res.redirect('/patient_login');
       } else {
         console.log( err );
         res.redirect('/patient_signup');
+      }
+    });
+  });
+
+  app.post('/doctor_signup', function (req, res, next) {
+    console.log('request from: ' + req.connection.remoteAddress);
+    var formContents = req.body;
+    console.log("get doctor_signup data:" + JSON.stringify(req.body));
+
+    var Doctor = new DoctorModel({
+      username: formContents.username,
+      password: SHA1.hex(formContents.password),
+      doctor_profile: [{
+        firstname: formContents.firstname,
+        lastname: formContents.lastname,
+        gender: formContents.gender,
+        email: formContents.email,
+        phone: formContents.phone,
+        age: formContents.age,
+        hospital: [{
+          name: formContents.hospital_name,
+          country: formContents.hospital_country,
+          city: formContents.hospital_city,
+          address: formContents.hospital_addr,
+          postcode: formContents.hospital_postcode
+        }]
+      }]
+    });
+    Doctor.save( function( err ) {
+      if( !err ) {
+        console.log( 'new doctor created' );
+        res.redirect('/doctor_login');
+      } else {
+        console.log( err );
+        res.redirect('/doctor_signup');
       }
     });
   });
@@ -257,6 +339,7 @@
     res.clearCookie('firstname');
     res.clearCookie('lastname');
     res.clearCookie('name');
+    res.clearCookie('role');
     res.redirect('/');
   });
 
@@ -280,7 +363,7 @@
     });
   });
 
-  //Get a single Patient by id
+  //Get a single Patient by username
   app.get( '/api/Patients/:username', checkAuth, function (req, res, next) {
     console.log('request from: ' + req.connection.remoteAddress);
     return PatientModel.find( {'username': req.params.username}, function(err, Patient) {
@@ -292,6 +375,37 @@
         });
         res.sendfile('app/html/patient_home.html'); 
         //return res.send( Patient );
+      } else {
+        return console.log( err );
+      }
+    });
+  });
+
+  //Get a list of all patients
+  app.get('/api/Doctors', checkAuth, function (req, res, next) {
+    console.log('request from: ' + req.connection.remoteAddress);
+    return DoctorModel.find( function( err, Doctors ) {
+      if( !err ) {
+        console.log(JSON.stringify(Doctors));
+        return res.send( Doctors );
+      } else {
+        return console.log( err );
+      }
+    });
+  });
+
+  //Get a single Doctor by username
+  app.get( '/api/Doctors/:username', checkAuth, function (req, res, next) {
+    console.log('request from: ' + req.connection.remoteAddress);
+    return DoctorModel.find( {'username': req.params.username}, function(err, Doctor) {
+      if( !err ) {
+        console.log(JSON.stringify(Doctor));
+
+        io.sockets.on('connection', function (socket) {
+            socket.emit('doctor', {Doctor: JSON.stringify(Doctor)});
+        });
+        res.sendfile('app/html/doctor_home.html'); 
+        //return res.send( Doctor );
       } else {
         return console.log( err );
       }

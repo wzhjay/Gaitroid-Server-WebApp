@@ -1,0 +1,54 @@
+<html>
+<head>
+    <script id="doctorTemplate" type="text/template">
+    <table class="user_profile">
+    <tbody>
+        <tr>
+            <td>
+                <div >
+                    <img class="user_profile_img" src = "../img/default_user.png" />
+                </div>
+            </td>
+            <td>
+                <div class="user_profile_info">
+                    <p><%= doctor_profile[0].firstname %>  <%= doctor_profile[0].lastname %></p>
+                    <p><%= doctor_profile[0].gender %></p>   
+                    <p><%= doctor_profile[0].age %></p>   
+                </div>
+            </td>
+            <td>
+                <div class="user_profile_info">
+                    <p>Email: <%= doctor_profile[0].email %></p>
+                    <p>Phone: <%= doctor_profile[0].phone %></p>
+                    <p>Hospital Name: <%= doctor_profile[0].hospital[0].country %></p>     
+                    <p>Hospital Country: <%= doctor_profile[0].hospital[0].country %></p>     
+                    <p>Hospital City: <%= doctor_profile[0].hospital[0].city %></p>     
+                    <p>Hospital Address: <%= doctor_profile[0].hospital[0].address %></p>            
+                    <p>Hospital Postcode: <%= doctor_profile[0].hospital[0].postcode %></p>
+                    <p>Creted_time: <%= doctor_profile[0].created_time %></p>    
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    <hr>
+    </script>
+    <script src="/js/libs/jquery.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Gaitroid</title>
+</head>
+<body>
+    <div id="header"></div>
+    <div class="bs-header">
+      <div class="container">
+        <h1>Doctors</h1>
+      </div>
+    </div>
+    <div class="container bs-docs-container">
+        <div id="doctors"></div>
+    </div>
+
+    <div id="footer"></div>
+</body>
+</html>
