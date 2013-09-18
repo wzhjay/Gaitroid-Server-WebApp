@@ -83,14 +83,14 @@
   exports.PatientModel = PatientModel;
   exports.DoctorModel = DoctorModel;
 
-  PatientModel.findOne({'username': "wzhjay"}, function(err, person) {
-    if(err) {
-      console.log("shit");
-    }
-    else {
-      console.log("%s", person.username);
-    }
-  })
+  // PatientModel.findOne({'username': "wzhjay"}, function(err, person) {
+  //   if(err) {
+  //     console.log("shit");
+  //   }
+  //   else {
+  //     console.log("%s", person.username);
+  //   }
+  // })
 
   // Configure server
   app.configure( function() {
