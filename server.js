@@ -35,7 +35,7 @@
       lastname: {type: String, required: true},
       gender: {type: String, required: true, default: "male"},
       email: {type: String, required: true},
-      phone: Number,
+      phone: String,
       age: {type: Number, required: true, min: 1, max: 100},
       created_time: {type: Date, required: true, default: Date.now},
       address: [address]
@@ -410,4 +410,35 @@
         return console.log( err );
       }
     });
+  });
+
+  /*======================================== Android APIs ========================================*/
+
+  //Get a single Patient by username
+  app.get( '/api/patient/:username/:password', function (req, res, next) {
+    console.log('request from: ' + req.connection.remoteAddress);
+    if(req.params.username && req.params.password) {
+      console.log("patient_api_login: username:" + req.params.username + " password:" + req.params.password);
+      console.log("patient_api_login: SHA password:" + SHA1.hex(req.params.password));
+      PatientModel.find({'username': req.params.username, 'password': SHA1.hex(req.params.password)}, function(err, person) {
+        if(err) {
+          console.log(err);
+        }
+        else {
+          if(person.length == 1) {
+            console.log("_id: " + person[0]._id);
+            console.log("name: " + person[0].patient_profile[0].lastname);
+
+            res.send(person);
+          }
+          else {
+            // toast message, cannot find user
+            res.send(null);
+          }
+        }
+      })
+    }
+    else {
+      // toast message, fill in both username and password
+    }
   });
