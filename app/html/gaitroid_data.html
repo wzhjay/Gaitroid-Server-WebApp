@@ -1,0 +1,250 @@
+<html>
+<heaed>
+	<script src="/js/libs/jquery.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <title>Gaitroid</title>
+	<script type="text/javascript">
+
+	var socket = io.connect('http://localhost:3000');
+	$(document).ready(function(){
+		
+		socket.on('gaitroid_data_0', function(data) {
+			var gaitroid_data_0 = data;
+			var acl = gaitroid_data_0.acl;
+			var gyr = gaitroid_data_0.gyr;
+			var mag = gaitroid_data_0.mag;
+			var exp_a0_0 = gaitroid_data_0.exp_a0_0;
+			var exp_a7_0 = gaitroid_data_0.exp_a7_0;
+
+			// if(parseFloat($('#exp_a0_0').text()) > 1000)
+			// 	$('#exp_a0_0').css('color', 'red');
+			// else
+			// 	$('#exp_a0_1').css('color', 'black');
+
+			// if(parseFloat($('#exp_a7_0').text()) > 1000)
+			// 	$('#exp_a7_0').css('color', 'red');
+			// else
+			// 	$('#exp_a7_0').css('color', 'black');
+			
+			$('#acl_x_0').text(acl.acl_x);
+			$('#acl_y_0').text(acl.acl_y);
+			$('#acl_z_0').text(acl.acl_z);
+
+			$('#gyro_x_0').text(gyr.gyr_x);
+			$('#gyro_y_0').text(gyr.gyr_y);
+			$('#gyro_z_0').text(gyr.gyr_z);
+
+			$('#mag_x_0').text(mag.mag_x);
+			$('#mag_y_0').text(mag.mag_y);
+			$('#mag_z_0').text(mag.mag_z);
+
+			$('#exp_a0_0').text(exp_a0_0);
+			$('#exp_a7_0').text(exp_a7_0);
+		})
+
+		socket.on('gaitroid_data_1', function(data) {
+			var gaitroid_data_1 = data;
+			var acl = gaitroid_data_1.acl;
+			var gyr = gaitroid_data_1.gyr;
+			var mag = gaitroid_data_1.mag;
+			var exp_a0_1 = gaitroid_data_1.exp_a0_1;
+			var exp_a7_1 = gaitroid_data_1.exp_a7_1;
+
+			// if(parseFloat($('#exp_a0_1').text()) > 1000)
+			// 	$('#exp_a0_1').css('color', 'red');
+			// else
+			// 	$('#exp_a0_1').css('color', 'black');
+
+			// if(parseFloat($('#exp_a7_1').text()) > 1000)
+			// 	$('#exp_a7_1').css('color', 'red');
+			// else
+			// 	$('#exp_a7_1').css('color', 'black');
+
+			$('#acl_x_1').text(acl.acl_x);
+			$('#acl_y_1').text(acl.acl_y);
+			$('#acl_z_1').text(acl.acl_z);
+
+			$('#gyro_x_1').text(gyr.gyr_x);
+			$('#gyro_y_1').text(gyr.gyr_y);
+			$('#gyro_z_1').text(gyr.gyr_z);
+
+			$('#mag_x_1').text(mag.mag_x);
+			$('#mag_y_1').text(mag.mag_y);
+			$('#mag_z_1').text(mag.mag_z);
+
+			$('#exp_a0_1').text(exp_a0_1);
+			$('#exp_a7_1').text(exp_a7_1);
+
+
+		})
+	});
+	</script>
+
+</head>
+<body>
+    <div id="header"></div>
+<!--     <div class="bs-header"> -->
+      <div class="container">
+      	<div class="row">
+
+	      	<!-- main content -->
+	      	<div class="col-lg-9">
+	      		<div class="gaitrod_content">
+		      		<div class="gaitroid_data_0">
+		      			<div class="panel panel-default">
+					        <!-- Default panel contents -->
+					        <div class="panel-heading">gaitroid_data_0</div>
+					        <!-- Table -->
+					        <table class="table">
+					          <thead>
+					            <tr>
+					              <th>Acl X</th>
+					              <th>Acl Y</th>
+					              <th>Acl Z</th>
+					            </tr>
+					          </thead>
+					          <tbody>
+					            <tr>
+					              <td id='acl_x_0'>0.0</td>
+					              <td id='acl_y_0'>0.0</td>
+					              <td id='acl_z_0'>0.0</td>
+					            </tr>
+					          </tbody>
+					        </table>
+					        <table class="table">
+					          <thead>
+					            <tr>
+					              <th>Gyro X</th>
+					              <th>Gyro Y</th>
+					              <th>Gyro Z</th>
+					            </tr>
+					          </thead>
+					          <tbody>
+					            <tr>
+					              <td id='gyro_x_0'>0.0</td>
+					              <td id='gyro_y_0'>0.0</td>
+					              <td id='gyro_z_0'>0.0</td>
+					            </tr>
+					          </tbody>
+					        </table>
+					        <table class="table">
+					          <thead>
+					            <tr>
+					              <th>Mag X</th>
+					              <th>Mag Y</th>
+					              <th>Mag Z</th>
+					            </tr>
+					          </thead>
+					          <tbody>
+					            <tr>
+					              <td id='mag_x_0'>0.0</td>
+					              <td id='mag_y_0'>0.0</td>
+					              <td id='mag_z_0'>0.0</td>
+					            </tr>
+					          </tbody>
+					        </table>
+					        <table class="table">
+					          <thead>
+					            <tr>
+					              <th>Exp A0</th>
+					              <th>Exp A7</th>
+					            </tr>
+					          </thead>
+					          <tbody>
+					            <tr>
+					              <td id='exp_a0_0'>0.0</td>
+					              <td id='exp_a7_0'>0.0</td>
+					            </tr>
+					          </tbody>
+					        </table>
+					      </div>
+		      		</div>
+		      		<div class="gaitroid_data_1">
+		      			<div class="panel panel-default">
+					        <!-- Default panel contents -->
+					        <div class="panel-heading">gaitroid_data_1</div>
+					        <!-- Table -->
+					        <table class="table">
+					          <thead>
+					            <tr>
+					              <th>Acl X</th>
+					              <th>Acl Y</th>
+					              <th>Acl Z</th>
+					            </tr>
+					          </thead>
+					          <tbody>
+					            <tr>
+					              <td id='acl_x_1'>0.0</td>
+					              <td id='acl_y_1'>0.0</td>
+					              <td id='acl_z_1'>0.0</td>
+					            </tr>
+					          </tbody>
+					        </table>
+					        <table class="table">
+					          <thead>
+					            <tr>
+					              <th>Gyro X</th>
+					              <th>Gyro Y</th>
+					              <th>Gyro Z</th>
+					            </tr>
+					          </thead>
+					          <tbody>
+					            <tr>
+					              <td id='gyro_x_1'>0.0</td>
+					              <td id='gyro_y_1'>0.0</td>
+					              <td id='gyro_z_1'>0.0</td>
+					            </tr>
+					          </tbody>
+					        </table>
+					        <table class="table">
+					          <thead>
+					            <tr>
+					              <th>Mag X</th>
+					              <th>Mag Y</th>
+					              <th>Mag Z</th>
+					            </tr>
+					          </thead>
+					          <tbody>
+					            <tr>
+					              <td id='mag_x_1'>0.0</td>
+					              <td id='mag_y_1'>0.0</td>
+					              <td id='mag_z_1'>0.0</td>
+					            </tr>
+					          </tbody>
+					        </table>
+					        <table class="table">
+					          <thead>
+					            <tr>
+					              <th>Exp A0</th>
+					              <th>Exp A7</th>
+					            </tr>
+					          </thead>
+					          <tbody>
+					            <tr>
+					              <td id='exp_a0_1'>0.0</td>
+					              <td id='exp_a7_1'>0.0</td>
+					            </tr>
+					          </tbody>
+					        </table>
+					      </div>
+		      		</div>
+				</div>
+      		</div>
+
+      		      		<!-- side bar, user profile -->
+      		<div class="col-lg-3" style="padding:0;text-align:left;overflow:hidden">
+      			<div class="bs-sidebar affix">
+
+      			</div>
+      		</div>
+
+
+      	</div>
+
+      </div>
+  <!-- </div> -->
+    <div id="footer"></div>
+</body>
+</html>

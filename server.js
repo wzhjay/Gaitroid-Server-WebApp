@@ -343,7 +343,6 @@
     res.redirect('/');
   });
 
-
   /*======================================== APIs ========================================*/
 
   app.get( '/api', function( request, response ) {
@@ -441,4 +440,22 @@
     else {
       // toast message, fill in both username and password
     }
+  });
+
+  //Get sensor data from android phone
+  app.get( '/gaitroid_data', checkAuth, function (req, res, next) {
+    console.log('request from: ' + req.connection.remoteAddress);
+    //socket connection
+    io.sockets.on('connection', function (socket) {
+      socket.on('gaitroid_data_0', function (data) {
+        console.log("gaitroid_data_0: " + data);
+        socket.broadcast.emit('gaitroid_data_0', data);
+      });
+
+      socket.on('gaitroid_data_1', function (data) {
+        console.log("gaitroid_data_1: " + data);
+        socket.broadcast.emit('gaitroid_data_1', data);
+      });
+    });
+    res.sendfile('app/html/gaitroid_data.html'); 
   });
