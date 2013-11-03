@@ -9,7 +9,8 @@
   var util = require('util');
   var Hashes = require('jshashes');
   var SHA1 = new Hashes.SHA1;
-  
+  var fs = require('fs');
+
   //Create server
   var app = express();
   var server = http.createServer(app).listen((3000), function(){
@@ -458,4 +459,18 @@
       });
     });
     res.sendfile('app/html/gaitroid_data.html'); 
+  });
+
+  // data file upload
+  app.post('/api/dataFileUpload', function(req, res, next) {
+    console.log('request from: ' + req.connection.remoteAddress);
+    console.log(__dirname);
+    console.log(req.files);
+    fs.readFile(req.files.uploadedfile.path, function (err, data) {
+      var newPath = __dirname + "/uploads/"+ req.files.uploadedfile.name;;
+      fs.writeFile(newPath, data, function (err) {
+        if (err) throw err;
+        res.redirect("back");
+      });
+    });
   });
