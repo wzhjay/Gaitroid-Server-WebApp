@@ -462,15 +462,34 @@
   });
 
   // data file upload
-  app.post('/api/dataFileUpload', function(req, res, next) {
+  app.post('/api/dataFileUpload/:userid', function(req, res, next) {
     console.log('request from: ' + req.connection.remoteAddress);
     console.log(__dirname);
     console.log(req.files);
     fs.readFile(req.files.uploadedfile.path, function (err, data) {
-      var newPath = __dirname + "/uploads/"+ req.files.uploadedfile.name;;
-      fs.writeFile(newPath, data, function (err) {
+      var newPath = __dirname + "/uploads/" + req.params.userid + "/" + req.files.uploadedfile.name;
+
+      if (path.existsSync(__dirname + "/uploads/" + req.params.userid)) { 
+        console.log('Directory existed');
+
+        fs.writeFile(newPath, data, function (err) {
         if (err) throw err;
-        res.redirect("back");
-      });
+          res.redirect("back");
+        });
+      }
+      else {
+        fs.mkdir(__dirname + "/uploads/" + req.params.userid, 0777, function (err) {
+          if (err) {
+              console.log(err);
+          } else {
+              console.log('Directory created');
+
+              fs.writeFile(newPath, data, function (err) {
+              if (err) throw err;
+                res.redirect("back");
+              });
+            }
+        });
+      }
     });
   });
