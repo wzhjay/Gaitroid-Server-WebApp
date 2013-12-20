@@ -78,11 +78,22 @@
       doctor_profile: [Doctor_profile]
   })
 
+  var Test = new mongoose.Schema({
+      test_id: ObjectId,
+      userid: {type: String, required: true},
+      created_time: {type: Date, required: true, default: Date.now},
+      due_time: {type: Date, requred: true},
+      content: {type: String, required: true},
+      speed: {type: String, required: true}
+  })
+
   var PatientModel = mongoose.model('Patient', Patient);
   var DoctorModel = mongoose.model('Doctor', Doctor);
+  var TestModel = mongoose.model('Test', Test)
 
   exports.PatientModel = PatientModel;
   exports.DoctorModel = DoctorModel;
+  exports.TestModel = TestModel;
 
   // PatientModel.findOne({'username': "wzhjay"}, function(err, person) {
   //   if(err) {
