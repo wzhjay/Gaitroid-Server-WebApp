@@ -1,5 +1,6 @@
 var App = App || {};
 var Gaitroid = {};
+var baseURL = "http://localhost:3000";
 
 function loadCSS(css) {
 	var link;

@@ -473,7 +473,7 @@
   });
 
   // data file upload
-  app.post('/api/dataFileUpload/:userid', function(req, res, next) {
+  app.post('/api/dataFileUpload/:userid', function (req, res, next) {
     console.log('request from: ' + req.connection.remoteAddress);
     console.log(__dirname);
     console.log(req.files);
@@ -503,4 +503,16 @@
         });
       }
     });
+  });
+
+  // send data from web to phone app
+  app.post('/api/sendPatientsTest', function (req, res, next) {
+    console.log('request from: ' + req.connection.remoteAddress);
+    var formContents = req.body;
+    console.log("testing: " + formContents.patientsSelect);
+    console.log("testing: " + formContents.dueDate);
+    console.log("testing: " + formContents.sendText);
+    console.log("testing: " + formContents.checkSpeedSlow);
+    console.log("testing: " + formContents.checkSpeedNormal);
+    console.log("testing: " + formContents.checkSpeedFast);
   });
