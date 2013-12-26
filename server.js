@@ -539,5 +539,30 @@
         }
       });
     }
-
   });
+
+  app.get('/api/getPatientTest/:userid', checkAuth, function (req, res, next){
+    console.log('request from: ' + req.connection.remoteAddress);
+    if(req.params.userid) {
+      console.log('patient_api_getTest: _id: ' + req.params.userid);
+      TestModel.find({'userid': req.params.userid}, function(err, test){
+        if(err) {
+          console.log(err);
+        }
+        else{
+          if(test.length > 0) {
+            res.send(test);
+          }
+          else{
+            res.send(null);
+          }
+        }
+      })
+    }
+    else {
+      // toast message, invalid userid, cannot find user
+    }
+  });
+
+
+
