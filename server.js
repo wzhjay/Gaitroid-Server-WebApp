@@ -509,10 +509,35 @@
   app.post('/api/sendPatientsTest', function (req, res, next) {
     console.log('request from: ' + req.connection.remoteAddress);
     var formContents = req.body;
-    console.log("testing: " + formContents.patientsSelect);
-    console.log("testing: " + formContents.dueDate);
-    console.log("testing: " + formContents.sendText);
-    console.log("testing: " + formContents.checkSpeedSlow);
-    console.log("testing: " + formContents.checkSpeedNormal);
-    console.log("testing: " + formContents.checkSpeedFast);
+    var users = formContents.selected_patients;
+    var speed = formContents.checkSpeed;
+    var content = formContents.send_text;
+    var due_time = formContents.due_date;
+
+    console.log("testing: " + formContents.selected_patients);
+    console.log("testing: " + formContents.due_date);
+    console.log("testing: " + formContents.send_text);
+    console.log("testing: " + formContents.checkSpeed);
+
+    res.send({status:0});
+
+    for(var i=0; i < users.length; i++) {
+      var Test = new TestModel({
+        userid: users[i],
+        content:content,
+        speed:speed,
+        due_time:due_time
+      });
+
+      Test.save( function( err ) {
+        if( !err ) {
+          console.log( 'new test created' );
+          //res.redirect('/patient_login');
+        } else {
+          console.log( err );
+          //res.redirect('/patient_signup');
+        }
+      });
+    }
+
   });

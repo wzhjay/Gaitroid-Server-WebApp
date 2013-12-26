@@ -79,6 +79,23 @@
 		    });
 	}
 
+	String.prototype.replaceAt=function(index, character) {
+      	return this.substr(0, index) + character + this.substr(index+character.length);
+   	}
+
+   	function _unSelect() {
+   		$('#send-text').val("");
+		$('#due-date').val("");
+
+		$.each($('.checkbox input'), function(i, l) {
+			$(l).prop("checked", false);
+		});
+
+		$( "#patients-select option:selected" ).each(function() {
+	      $(this).prop("selected", false);
+	    });
+   	}
+
 	function clickSendBtn() {
 		var selected_patients = []; // array, store selected patient id
 
@@ -100,16 +117,41 @@
 	    	send_text = $('#send-text').val();
 	    }
 
-	    var checkSpeed = [];
+	    var checkSpeed = "000";
 	    $.each($('.checkbox input'), function(i, l) {
 	    	if(l.checked) {
-	    		checkSpeed.push($(l).attr('id'));
+	    		if($(l).attr('id').toString() === "checkSpeedSlow") {
+	    			checkSpeed = checkSpeed.replaceAt(0, '1');
+	    		}
+	    		if($(l).attr('id').toString() === "checkSpeedNormal") {
+	    			checkSpeed = checkSpeed.replaceAt(1, '1');
+	    		}
+	    		if($(l).attr('id').toString() === "checkSpeedFast") {
+	    			checkSpeed = checkSpeed.replaceAt(2, '1');
+	    		}
 	    	}
 	    });
 	    console.log(selected_patients);
 	    console.log(due_date);
 	    console.log(send_text);
 	    console.log(checkSpeed);
+
+	    $.ajax({
+		    	type:"post",
+		        url:baseURL + "/api/sendPatientsTest",
+		        data:{selected_patients:selected_patients,due_date:due_date,send_text:send_text,checkSpeed:checkSpeed},
+		        success:function(json){
+
+		            if(json.status == 0) {
+		            	console.log("send success");
+		            	alert("send success");
+
+		            	_unSelect();
+		            }
+		            
+		        },
+		        
+		    });//End ajax
 	}
 
 	$(document).ready(function ($) {
