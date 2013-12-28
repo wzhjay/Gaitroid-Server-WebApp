@@ -541,7 +541,7 @@
     }
   });
 
-  app.get('/api/getPatientTest/:userid', checkAuth, function (req, res, next){
+  app.get('/api/getPatientTest/:userid', function (req, res, next){
     console.log('request from: ' + req.connection.remoteAddress);
     if(req.params.userid) {
       console.log('patient_api_getTest: _id: ' + req.params.userid);
