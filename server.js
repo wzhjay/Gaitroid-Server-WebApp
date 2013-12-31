@@ -522,6 +522,8 @@
     res.send({status:0});
 
     for(var i=0; i < users.length; i++) {
+      // var d = new Date(due_time.substring(6, 10), due_time.substring(0 ,2), due_time.substring(3, 5));
+      // var localTime =  d.getTime() + 28800000;
       var Test = new TestModel({
         userid: users[i],
         content:content,
@@ -541,6 +543,8 @@
     }
   });
 
+
+  // get patients test tasks from db
   app.get('/api/getPatientTest/:userid', function (req, res, next){
     console.log('request from: ' + req.connection.remoteAddress);
     if(req.params.userid) {
@@ -551,6 +555,28 @@
         }
         else{
           if(test.length > 0) {
+
+            for(var i=0; i<test.length; i++) {
+              var due_time = test[i].due_time;
+                console.log(due_time);
+                console.log(Date.now());
+                console.log(Date.parse(due_time) + 28800000); // 28800000 is 8 hr
+                var due = Date.parse(due_time) + 28800000;
+                if(Date.now() > due) {
+                    // overdue, delete
+                    TestModel.remove({_id:test[i]._id}, function(err, test){
+                      if (!err) {
+                        console.log(test + " removed!");
+                      }
+                      else {
+                        console.log(err);
+                      }
+                    });
+
+                    delete test[i];
+                }       
+            }
+
             res.send(test);
           }
           else{
@@ -563,6 +589,4 @@
       // toast message, invalid userid, cannot find user
     }
   });
-
-
 
