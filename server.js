@@ -456,7 +456,7 @@
 
   //Get sensor data from android phone
   app.get( '/gaitroid_data', checkAuth, function (req, res, next) {
-    console.log('request from: ' + req.connection.remoteAddress);
+    console.log('request fro m: ' + req.connection.remoteAddress);
     //socket connection
     io.sockets.on('connection', function (socket) {
       socket.on('gaitroid_data_0', function (data) {
